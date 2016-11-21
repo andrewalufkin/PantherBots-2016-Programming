@@ -24,6 +24,7 @@ Turn::Turn(): Command() {
 
 // Called just before this Command runs the first time
 void Turn::Initialize() {
+	//initializes variables
 	position = Robot::drivetrain->GetDirection();
 	turnAng = Robot::drivetrain->TurnAngle();
 }
@@ -31,16 +32,19 @@ void Turn::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void Turn::Execute()
 {
+	//calls function and passes it the variables as parameters
 	Robot::drivetrain->TurnFun(position, turnAng);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Turn::IsFinished() {
-    return Robot::drivetrain->GetPos();
+	//calls function GetPos()
+    	return Robot::drivetrain->GetPos();
 }
 
 // Called once after isFinished returns true
 void Turn::End() {
+	//waits half a second and then stops the robot
 	Wait(.500);
 	Robot::drivetrain->Stop();
 }
@@ -48,5 +52,5 @@ void Turn::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void Turn::Interrupted() {
-	End();
+	End(); //safety measure
 }
