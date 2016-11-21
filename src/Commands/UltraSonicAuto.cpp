@@ -26,6 +26,7 @@ UltraSonicAuto::UltraSonicAuto(): Command() {
 // Called just before this Command runs the first time
 void UltraSonicAuto::Initialize()
 {
+	//initializes the variables to their functions
 	speed = Robot::drivetrain->GetPower();
 	correction = Robot::drivetrain->GetkP();
 	duration = Robot::drivetrain->GetAutoTime();
@@ -34,6 +35,7 @@ void UltraSonicAuto::Initialize()
 
 	//SetTimeout(duration + delay);
 
+	//ensures gyro is straight, and sets wrist down to allow use
 	Robot::drivetrain->ResetGyro();
 	Robot::wrist->DownWristState();
 }
@@ -41,24 +43,24 @@ void UltraSonicAuto::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void UltraSonicAuto::Execute()
 {
-	Robot::drivetrain->AutoGyroDrive(speed, correction);
+	Robot::drivetrain->AutoGyroDrive(speed, correction); // user given values to be used in auto to drive forward
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool UltraSonicAuto::IsFinished()
 {
-	return Robot::drivetrain->GetDistance() < 18.000;
+	return Robot::drivetrain->GetDistance() < 18.000; //stops when ultrasonic reads less than 18 inches
 }
 
 // Called once after isFinished returns true
 void UltraSonicAuto::End()
 {
-	Robot::drivetrain->Stop();
+	Robot::drivetrain->Stop(); // stops when finished
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void UltraSonicAuto::Interrupted()
 {
-	End();
+	End(); //safety measure
 }
