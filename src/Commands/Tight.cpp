@@ -30,7 +30,7 @@ void Tight::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Tight::Execute() {
-	Robot::catapult->Backward();
+	Robot::catapult->Backward(); //force catapult to be drawn back
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -41,11 +41,11 @@ bool Tight::IsFinished() {
 
 // Called once after isFinished returns true
 void Tight::End() {
-	Robot::catapult->STOP();
+	Robot::catapult->STOP(); //stops the function when button is released
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void Tight::Interrupted() {
-	End();
+	End(); //safety measure
 }
